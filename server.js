@@ -11,9 +11,30 @@ app.get('/', function(req, res) {
 });
 
 app.post('/', function(req,res) {
-    request(`https://apiv2.bitcoinaverage.com/indices/global/ticker/${req.body.crypto}${req.body.currency}`, function(error, response, body) {
-        let data = JSON.parse(body);    
-        res.send(`<h1>The current price of ${req.body.crypto} is ${data.last} in ${req.body.currency}</h1>`);
+    let crypto = req.body.crypto;
+    let currency = req.body.currency;
+    let amount = req.body.amount;
+
+    let options = {
+        url: "https://apiv2.bitcoinaverage.com/convert/global",
+        Method: "GET",
+        qs: {
+            from: crypto,
+            to: currency,
+            amount: amount
+        }
+    };
+
+    request(options, function(error, response, body) {
+        let data = JSON.parse(body);
+        let price = data.price;
+        console.log(data);
+        console.log(price);
+        let currentDate = data.time;
+
+        res.write(`<p>The current date is ${currentDate}</p>`);
+        res.write(`<h1>${amount} ${crypto} is currently worth ${price} ${currency}</h1>`);
+        res.send();
     });
 
 
