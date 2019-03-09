@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
-
 const app = express();
 
 app.use(bodyParser.urlencoded({extended:true}));
@@ -28,15 +27,12 @@ app.post('/', function(req,res) {
     request(options, function(error, response, body) {
         let data = JSON.parse(body);
         let price = data.price;
-        console.log(data);
-        console.log(price);
         let currentDate = data.time;
 
         res.write(`<p>The current date is ${currentDate}</p>`);
         res.write(`<h1>${amount} ${crypto} is currently worth ${price} ${currency}</h1>`);
         res.send();
     });
-
 
 });
 
