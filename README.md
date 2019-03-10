@@ -3,4 +3,4 @@ Application that will display the latest bitcoin rate with the corresponding cur
 
 # How to install
 - clone the repository
-- run 'npm install' to install of the dependencies
+- run 'npm install' to install all of the dependencies
